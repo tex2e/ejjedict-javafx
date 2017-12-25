@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+<?import java.lang.*?>
+<?import java.net.URL?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.*?>
+<?import javafx.collections.*?>
+<?import fxmltableview.*?>
+
+<?import com.tex2e.Word?>
+
+<BorderPane
+  xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.tex2e.AppController">
+  <stylesheets>
+    <URL value="@main.css" />
+  </stylesheets>
+  <top>
+    <TextField fx:id="field1" />
+  </top>
+  <center>
+    <TableView fx:id="dictTable">
+      <columns>
+        <TableColumn text="Word">
+          <cellValueFactory><PropertyValueFactory property="word" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Definition">
+          <cellValueFactory><PropertyValueFactory property="definition" />
+          </cellValueFactory>
+        </TableColumn>
+      </columns>
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <Word word="Jacob" definition="Smith" />
+        </FXCollections>
+      </items>
+    </TableView>
+  </center>
+</BorderPane>

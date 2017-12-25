@@ -1,0 +1,4 @@
+#!/bin/bash -u
+
+javac -d classes src/*.java &&
+java -cp classes:fxml com.tex2e.MainApp
