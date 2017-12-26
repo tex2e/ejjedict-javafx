@@ -32,7 +32,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("FXML TableView Example");
+        primaryStage.setTitle("ejjedict");
         Pane myPane = (Pane)FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));
         Scene myScene = new Scene(myPane, 700, 500);
         primaryStage.setScene(myScene);
