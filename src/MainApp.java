@@ -27,38 +27,46 @@ public class MainApp extends Application {
     }
 
     public MainApp() {
-        String ejdictContent;
-        String jedictContent;
-        try {
-            ejdictContent = new String(Files.readAllBytes(Paths.get(ejdictPath)));
-            jedictContent = new String(Files.readAllBytes(Paths.get(jedictPath)));
-        } catch (IOException e) {
-            throw new RuntimeException("Error: cannot find dictionary.");
-        }
-        String[] ejdict = ejdictContent.split("\n");
-        String[] jedict = jedictContent.split("\n");
-        ArrayList<Word> dict = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            dict.add(new Word(ejdict[i].split("\t| /")[0], ejdict[i].split("\t| /")[1]));
-        }
-        observableDict = FXCollections.observableArrayList(dict);
+        this.observableDict = loadAllDict();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("FXML TableView Example");
-        Pane myPane = (Pane)FXMLLoader.load(getClass().getClassLoader().getResource("main.fxml"));
-        Scene myScene = new Scene(myPane, 600, 400);
+        Pane myPane = (Pane)FXMLLoader.load(getClass().getClassLoader().getResource("fxml/main.fxml"));
+        Scene myScene = new Scene(myPane, 700, 500);
         primaryStage.setScene(myScene);
-
         AppController.getInstance().setMainApp(this);
-
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private ObservableList<Word> loadAllDict() {
+        String ejdictContent;
+        String jedictContent;
+        try {
+            ejdictContent = new String(Files.readAllBytes(Paths.get(this.ejdictPath)));
+            jedictContent = new String(Files.readAllBytes(Paths.get(this.jedictPath)));
+        } catch (IOException e) {
+            throw new RuntimeException("Error: cannot find dictionary.");
+        }
+
+        String[] ejdict = ejdictContent.split("\n");
+        String[] jedict = jedictContent.split("\n");
+        ArrayList<Word> dict = new ArrayList<>();
+
+        for (int i = 0; i < ejdict.length; i++) {
+            String[] row = ejdict[i].split("\t| /");
+            dict.add(new Word(row[0], row[1]));
+        }
+        for (int i = 0; i < jedict.length; i++) {
+            String[] row = jedict[i].split("\t| /");
+            dict.add(new Word(row[0], row[1]));
+        }
+        return FXCollections.observableArrayList(dict);
     }
 
 }

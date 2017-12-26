@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-#label1 {
+@font-face {
   -fx-font-family: Serif;
-  -fx-font-size: 24pt;
 }

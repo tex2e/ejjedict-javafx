@@ -8,29 +8,42 @@ import javafx.fxml.*;
 import javafx.event.*;
 import javafx.scene.control.*;
 import javafx.collections.*;
-
+import javafx.collections.transformation.FilteredList;
 
 public class AppController implements Initializable {
     private static AppController instance;
     private MainApp app;
 
-    @FXML TextField field1;
-    // @FXML ListView<String> list1;
+    ObservableList<Word> dict;
 
+    @FXML TextField searchWordField;
     @FXML TableView<Word> dictTable;
     @FXML TableColumn<Word, String> wordColumn;
     @FXML TableColumn<Word, String> definitionColumn;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        //
+
+        // searchWordField.setPromptText("&#128269;  search");
+        // searchWordField.setFocusTraversable(false);
+
+        searchWordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String searchWord = searchWordField.getText();
+            if (searchWord.length() == 0) {
+                dictTable.setItems(FXCollections.observableArrayList());
+            } else {
+                FilteredList<Word> result = dict.filtered(row -> row.getWord().startsWith(searchWord));
+                dictTable.setItems(result);
+            }
+        });
+
     }
 
     public void setMainApp(MainApp app) {
         this.app = app;
-        ObservableList<Word> dict = app.getDictData();
+        dict = app.getDictData();
 
-        dictTable.setItems(dict);
+        // dictTable.setItems(result);
     }
 
     public AppController() {
