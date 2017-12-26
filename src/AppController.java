@@ -24,9 +24,6 @@ public class AppController implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
-        // searchWordField.setPromptText("&#128269;  search");
-        // searchWordField.setFocusTraversable(false);
-
         searchWordField.textProperty().addListener((observable, oldValue, newValue) -> {
             String searchWord = searchWordField.getText();
             if (searchWord.length() == 0) {
@@ -42,8 +39,6 @@ public class AppController implements Initializable {
     public void setMainApp(MainApp app) {
         this.app = app;
         dict = app.getDictData();
-
-        // dictTable.setItems(result);
     }
 
     public AppController() {
